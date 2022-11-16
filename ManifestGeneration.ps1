@@ -25,7 +25,7 @@ $ManifestSplat = @{
     # Leave as-is (unless specifically needed):
     # Pathing:
     NestedModules            = "$($ModuleName).psm1"
-    Path                     = "$($PSScriptRoot)\$($ModuleName).psd1"
+    Path                     = "$($PSScriptRoot)\$($ModuleName)\$($ModuleName).psd1"
     
     Guid                     = 'f966ba35-3459-4957-a23c-a278ef711d9f'
     
