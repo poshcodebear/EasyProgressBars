@@ -90,7 +90,7 @@ function Remove-ProgressBar
         {
             if ($PSCmdlet.ShouldProcess($bar, 'Remove ProgressBar'))
             {
-                $bar.Dispose(2)
+                $bar.Dispose(3)
             }
         }
     }

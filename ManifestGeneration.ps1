@@ -4,7 +4,7 @@ $ManifestSplat = @{
     # Module details:
     Author                   = 'Laurel Lowery, a.k.a. The PowerShell Bear'
     Description              = 'Helper functions to make setting up progress bars to track progress simple and straightforward'
-    ModuleVersion            = '1.0.0'
+    ModuleVersion            = '1.0.1'
     PowerShellVersion        = '7.2'
     
     # Exports:
