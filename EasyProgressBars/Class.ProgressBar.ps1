@@ -7,6 +7,8 @@ class ProgressBar
     [DateTime]    $StartTime
     [int]         $TotalCount
     [int]         $Iteration
+    
+    hidden [Guid] $Guid
     #endregion
     
     #region Static Properties
@@ -92,6 +94,7 @@ class ProgressBar
         $this.Id         = [ProgressBar]::GetNextStackId()
         $this.Iteration  = 0
         $this.View       = $View
+        $this.Guid       = New-Guid
         
         [ProgressBar]::ProgressBarStack += $this
     }
@@ -150,15 +153,18 @@ class ProgressBar
         return "($($this.Id)) $($this.Activity) [$($this.Iteration)/$($this.TotalCount)]"
     }
     [void] Dispose()
-        { $this.Dispose(2) }
+        { $this.Dispose(3) }
     [void] hidden Dispose([int] $Depth)
     {
         $this.Children.foreach({$_.Dispose($Depth + 1)})
         
         [ProgressBar]::ProgressBarStack.Remove($this)
         
-        $references = (Get-Variable -Scope $Depth).where({$_.Value -is [ProgressBar] -and $_.Value.Id -eq $this.Id})
-        Remove-Variable -Name $references.Name -Scope $Depth
+        (Get-Variable).where({
+            $_.Value          -is [ProgressBar] -and
+            $_.GetType().Name -eq 'PSVariable'  -and
+            $_.Value.Guid     -eq $this.Guid
+        }) | Remove-Variable -Scope $Depth
     }
     #endregion
     
